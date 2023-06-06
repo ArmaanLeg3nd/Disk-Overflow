@@ -4,7 +4,10 @@ import './dashboard.css'
 class dashboard extends React.Component {
     render(){
         return{
+            
 
         }
     }
 }
+
+export default dashboard;

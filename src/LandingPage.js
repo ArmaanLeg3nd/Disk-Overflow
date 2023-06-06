@@ -1,13 +1,13 @@
-  import React from 'react';
+  import React, { useState } from 'react';
   import './LandingPage.css';
   import user from './user.svg';
   import mstory from './main-stories.png';
-  import './dashboard.js'
+  import Dashboard from './dashboard';
   
   class LandingPage extends React.Component {
     constructor(props) {
       super(props);
-      this.formRef = React.createRef(); // Create a ref for the form element
+      this.formRef = React.createRef();
       this.state = {
         showLoginForm: false,
         showSignUpForm: false,
@@ -20,23 +20,25 @@
       };
     }
   
-    handleButtonClick = () => {
-      this.setState({ showLoginForm: true, showSignUpForm: false});
-      if (this.state.showLoginForm) {
-        this.scrollFormIntoView();
-      }
+    handleCloseForm = () => {
+      this.setState({ showLoginForm: false, showSignUpForm: false });
     };
-  
+    
+
+    handleButtonClick = () => {
+      this.setState({ showLoginForm: true, showSignUpForm: false }, () => {
+      });
+    };
+    
+    handleSignUpButtonClick = () => {
+      this.setState({ showSignUpForm: true, showLoginForm: false }, () => {
+      });
+    };
+    
     handleInputChange = (event) => {
       this.setState({ [event.target.name]: event.target.value });
     };
   
-    handleSignUpButtonClick = () => {
-      this.setState({ showSignUpForm: true, showLoginForm: false });
-      if (this.state.showSignUpForm) {
-        this.scrollFormIntoView();
-      }
-    };
   
     handleLoginSubmit = (event) => {
       event.preventDefault();
@@ -44,7 +46,6 @@
       const { login, password } = this.state;
       if (login === 'admin' && password === 'password') {
         this.setState({ isLoggedIn: true });
-        window.location = "dashboard.js";
       } else {
         alert('Invalid login credentials');
       }
@@ -59,23 +60,16 @@
       } else {
         // Save user data or perform sign-up logic here
         alert('Sign-up successful');
-        window.location = "dashboard.js";
+        this.setState({ isLoggedIn: true });
         this.setState({ showLoginForm: true, showSignUpForm: false });
       }
     };
-
-    scrollFormIntoView() {
-        const formElement = document.getElementById('wrapper fadeInDown');
-        if (formElement) {
-          formElement.scrollIntoView({ behavior: 'smooth' });
-        }
-      }
   
     render() {
       const { showLoginForm, showSignUpForm, isLoggedIn } = this.state;
   
       if (isLoggedIn) {
-        return <div>You are logged in!</div>;
+
       }
   
       return (
@@ -119,6 +113,9 @@
           {showLoginForm && (
             <div className="wrapper fadeInDown">
               <div id="formContent">
+              <span className="close-button" onClick={this.handleCloseForm}>
+              &times;
+            </span>
                 <h2 className="active">
                   <button id="b1" onClick={this.handleButtonClick}>
                     Sign In
@@ -170,6 +167,9 @@
           {showSignUpForm && (
             <div className="wrapper fadeInDown">
             <div id="formContent">
+            <span className="close-button" onClick={this.handleCloseForm}>
+              &times;
+            </span>
               <h2 className="inactive underlineHover">
                 <button id="b1" onClick={this.handleButtonClick}>
                   Sign In
