@@ -1,0 +1,52 @@
+.dashboard-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 100px;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  
+  .button-container {
+    position: relative;
+    left: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 200px;
+  }
+  
+  .button {
+    --background: #275efe;
+    --rectangle: #184fee;
+    --success: #4672f1;
+    --text: #fff;
+    --arrow: #fff;
+    --checkmark: #fff;
+    font-size: larger;
+    align-items: center;
+    justify-content: center;
+    color: #ffff;
+    display: flex;
+    overflow: hidden;
+    text-decoration: none;
+    -webkit-mask-image: -webkit-radial-gradient(white, black);
+    background: var(--background);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px -1px var(--shadow);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    margin-bottom: 10px;
+    height: 100px;
+    width: 80%;
+  }
+  
+  .button:last-child {
+    margin-bottom: 0;
+  }
+  
+  .button:active {
+    transform: scale(0.95);
+    box-shadow: 0 1px 4px -1px var(--shadow);
+    shadow: rgba(10, 22, 50, .24);
+  }
+  

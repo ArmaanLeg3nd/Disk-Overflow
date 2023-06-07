@@ -1,77 +1,94 @@
-  import React, { useState } from 'react';
-  import './LandingPage.css';
-  import user from './user.svg';
-  import mstory from './main-stories.png';
-  import Dashboard from './dashboard';
-  
-  class LandingPage extends React.Component {
-    constructor(props) {
-      super(props);
-      this.formRef = React.createRef();
-      this.state = {
-        showLoginForm: false,
-        showSignUpForm: false,
-        login: '',
-        password: '',
-        repeatPassword: '',
-        username: '',
-        email: '',
-        isLoggedIn: false,
-      };
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { withRouter } from 'react-router-dom';
+import './LandingPage.css';
+import user from './user.svg';
+import mstory from './main-stories.png';
+import Dashboard from './dashboard';
+
+
+class LandingPage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.formRef = React.createRef();
+    this.state = {
+      showLoginForm: false,
+      showSignUpForm: false,
+      login: '',
+      password: '',
+      repeatPassword: '',
+      username: '',
+      email: '',
+      isLoggedIn: false,
+    };
+  }
+
+  handleCloseForm = () => {
+    this.setState({ showLoginForm: false, showSignUpForm: false });
+  };
+
+  handleButtonClick = () => {
+    this.setState({ showLoginForm: true, showSignUpForm: false });
+  };
+
+  handleSignUpButtonClick = () => {
+    this.setState({ showSignUpForm: true, showLoginForm: false });
+  };
+
+  handleInputChange = (event) => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
+
+  handleLoginSubmit = (event) => {
+    event.preventDefault();
+    // Simulate server-side validation (replace with actual server-side logic)
+    const { login, password } = this.state;
+    if (login === 'admin' && password === 'password') {
+      this.setState({ isLoggedIn: true });
+      ReactDOM.render(
+        <React.StrictMode>
+          <Dashboard />
+        </React.StrictMode>,
+        document.getElementById('root')
+      );
+      
+    } else {
+      alert('Invalid login credentials');
     }
-  
-    handleCloseForm = () => {
-      this.setState({ showLoginForm: false, showSignUpForm: false });
-    };
-    
+  };
 
-    handleButtonClick = () => {
-      this.setState({ showLoginForm: true, showSignUpForm: false }, () => {
-      });
-    };
-    
-    handleSignUpButtonClick = () => {
-      this.setState({ showSignUpForm: true, showLoginForm: false }, () => {
-      });
-    };
-    
-    handleInputChange = (event) => {
-      this.setState({ [event.target.name]: event.target.value });
-    };
-  
-  
-    handleLoginSubmit = (event) => {
-      event.preventDefault();
-      // Simulate server-side validation (replace with actual server-side logic)
-      const { login, password } = this.state;
-      if (login === 'admin' && password === 'password') {
-        this.setState({ isLoggedIn: true });
-      } else {
-        alert('Invalid login credentials');
-      }
-    };
-  
-    handleSignUpSubmit = (event) => {
-      event.preventDefault();
-      // Simulate server-side validation (replace with actual server-side logic)
-      const { username, email, password, repeatPassword } = this.state;
-      if (password !== repeatPassword) {
-        alert('Passwords do not match');
-      } else {
-        // Save user data or perform sign-up logic here
-        alert('Sign-up successful');
-        this.setState({ isLoggedIn: true });
-        this.setState({ showLoginForm: true, showSignUpForm: false });
-      }
-    };
-  
-    render() {
-      const { showLoginForm, showSignUpForm, isLoggedIn } = this.state;
-  
-      if (isLoggedIn) {
+  handleSignUpSubmit = (event) => {
+    event.preventDefault();
+    // Simulate server-side validation (replace with actual server-side logic)
+    const { username, email, password, repeatPassword } = this.state;
+    if (password !== repeatPassword) {
+      alert('Passwords do not match');
+    } else {
+      // Save user data or perform sign-up logic here
+      alert('Sign-up successful');
+      this.setState({ isLoggedIn: true });
+      ReactDOM.render(
+        <React.StrictMode>
+          <Dashboard />
+        </React.StrictMode>,
+        document.getElementById('root')
+      );
+      
 
-      }
-  
+    }
+  };
+
+  render() {
+    const { showLoginForm, showSignUpForm, isLoggedIn } = this.state;
+
+    if (isLoggedIn) {
+      return (
+        <React.StrictMode>
+          <Dashboard />
+        </React.StrictMode>
+      );
+    }
+
       return (
         <div>
           <div className="landing-page">

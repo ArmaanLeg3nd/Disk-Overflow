@@ -1,0 +1,36 @@
+.app-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    color: blue;
+    height: 100vh;
+    padding: 20px;
+  }
+  
+  .text-input-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .text-input {
+    width: 100%;
+    max-width: 500px;
+    height: 200px;
+    padding: 10px;
+    resize: none;
+  }
+  
+  .convert-btn {
+    background-color: blue;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  
+  .audio-container {
+    margin-top: 20px;
+  }
